@@ -195,6 +195,36 @@ class TalentreeClient
     }
 
     /**
+     * gets all direct children
+     *
+     * @param $data
+     * @return mixed
+     */
+    function getChildren($id)
+    {
+
+        $client = new Client();
+
+        $response = $client->request('GET', $this->apiUri . 'children/' . $id, [
+            'headers' => [
+                'X-Authorization' => $this->apiKey,
+                'X-response-type' => 'json',
+                'Content-Type' => 'application/json',
+            ],
+            'decode_content' => true,
+            'verify' => false
+        ]);
+
+        $body = json_decode($response->getBody(), true);
+
+        if (!empty($body['data']) && $body['status'] == 'success') {
+            return $body['data'];
+        } else {
+            return $body;
+        }
+    }
+    
+    /**
      * Sort everything based on recognition
      *
      * @param $data
