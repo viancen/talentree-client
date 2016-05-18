@@ -223,7 +223,7 @@ class TalentreeClient
             return $body;
         }
     }
-    
+
     /**
      * Sort everything based on recognition
      *
