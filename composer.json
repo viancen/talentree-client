@@ -1,7 +1,7 @@
 {
   "name": "viancen/talentree-client",
   "type": "library",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "API client library for the Talentree",
   "keywords": [
     "talentree",

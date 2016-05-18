@@ -12,10 +12,10 @@ class TalentreeClient
     public $apiKey;
 
     //What part of Talentree is used
-    public $settings;
+    public $settings = [];
 
     //What part of Talentree is used for filters
-    public $filter_settings;
+    public $filter_settings = [];
 
     //Root url of API
     public $root;
@@ -283,6 +283,36 @@ class TalentreeClient
 
     }
 
+
+    /**
+     * gets all direct children
+     *
+     * @param $data
+     * @return mixed
+     */
+    function getItem($id)
+    {
+
+        $client = new Client();
+
+        $response = $client->request('GET', $this->apiUri . 'tree/' . $id, [
+            'headers' => [
+                'X-Authorization' => $this->apiKey,
+                'X-response-type' => 'json',
+                'Content-Type' => 'application/json',
+            ],
+            'decode_content' => true,
+            'verify' => false
+        ]);
+
+        $body = json_decode($response->getBody(), true);
+        if (!empty($body['data']) && $body['status'] == 'success') {
+            return $body['data'];
+        } else {
+            return $body;
+        }
+
+    }
 
     /**
      * GEt all lists
