@@ -57,11 +57,13 @@ class TalentreeClient
 
     }
 
-    public function getSettings(){
+    public function getSettings()
+    {
         return $this->settings;
     }
 
-    public function getFilterSettings(){
+    public function getFilterSettings()
+    {
         return $this->filter_settings;
     }
 
@@ -140,7 +142,7 @@ class TalentreeClient
     {
         $client = new Client();
 
-        $response = $client->request('POST', $this->apiUri . 'parse-resume', [
+        $response = $client->request('POST', $this->root . 'parse-resume', [
             'headers' => [
                 'X-Authorization' => $this->apiKey,
                 'X-response-type' => 'json',
@@ -172,7 +174,7 @@ class TalentreeClient
     {
         $client = new Client();
 
-        $response = $client->request('POST', $this->apiUri . 'parse-job', [
+        $response = $client->request('POST', $this->root . 'parse-job', [
             'headers' => [
                 'X-Authorization' => $this->apiKey,
                 'X-response-type' => 'json',
@@ -273,7 +275,7 @@ class TalentreeClient
 
         $client = new Client();
 
-        $response = $client->request('GET', $this->apiUri . 'flat-tree/' . $id, [
+        $response = $client->request('GET', $this->root . 'flat-tree/' . $id, [
             'headers' => [
                 'X-Authorization' => $this->apiKey,
                 'X-response-type' => 'json',
@@ -304,7 +306,7 @@ class TalentreeClient
 
         $client = new Client();
 
-        $response = $client->request('GET', $this->apiUri . 'tree/' . $id, [
+        $response = $client->request('GET', $this->root . 'tree/' . $id, [
             'headers' => [
                 'X-Authorization' => $this->apiKey,
                 'X-response-type' => 'json',
