@@ -205,7 +205,7 @@ class TalentreeClient
 
         $client = new Client();
 
-        $response = $client->request('GET', $this->apiUri . 'children/' . $id, [
+        $response = $client->request('GET', $this->root . 'children/' . $id, [
             'headers' => [
                 'X-Authorization' => $this->apiKey,
                 'X-response-type' => 'json',
