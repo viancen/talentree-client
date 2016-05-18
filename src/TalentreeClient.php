@@ -47,7 +47,7 @@ class TalentreeClient
                 $this->settings = $options['settings'];
             }
             if (!empty($options['filter_settings'])) {
-                $this->settings = $options['filter_settings'];
+                $this->filter_settings = $options['filter_settings'];
             }
         }
 
@@ -56,6 +56,15 @@ class TalentreeClient
         $this->root = rtrim($this->root, '/') . '/';
 
     }
+
+    public function getSettings(){
+        return $this->settings;
+    }
+
+    public function getFilterSettings(){
+        return $this->filter_settings;
+    }
+
 
     /**
      * Post request to Talentree.io
