@@ -375,8 +375,10 @@ class TalentreeClient
     function getFiltersLists()
     {
         $return = [];
-        foreach ($this->settings as $oneList => $label) {
-            $return[$label] = $this->makeList($oneList);
+        foreach ($this->filter_settings as $oneList => $label) {
+            if(!is_array($label)) {
+                $return[$label] = $this->makeList($oneList);
+            }
         }
 
         return $return;
