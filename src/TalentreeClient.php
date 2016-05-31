@@ -23,6 +23,7 @@ class TalentreeClient
     //not used yet
     public $debug = false;
 
+    //Todo: map all errors into comprehensible messages
     public static $error_map = [
         "Invalid_Key" => "Talentree_Invalid_Key",
     ];
@@ -37,7 +38,9 @@ class TalentreeClient
     public function __construct($apikey = null, $root = null, $options = [])
     {
         if (!$apikey) throw new Talentree_Error('You must provide a Talentree API key');
-        if (!$root) throw new Talentree_Error('You must provide a Talentree Root path');
+        if (!$root) {
+            $root = 'https://talentree.io/v1/';
+        }
 
         $this->apiKey = $apikey;
         $this->root = $root;
@@ -376,7 +379,7 @@ class TalentreeClient
     {
         $return = [];
         foreach ($this->filter_settings as $oneList => $label) {
-            if(!is_array($label)) {
+            if (!is_array($label)) {
                 $return[$label] = $this->makeList($oneList);
             }
         }
