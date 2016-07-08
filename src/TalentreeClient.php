@@ -284,7 +284,8 @@ class TalentreeClient
                     }
 
                     unset($talent['description']);
-                    $defResults[$node['name']][$subResultArray['subNode']['name']][] = [
+                    $label = !empty($node['label']) ? $node['label'] : $node['name'];
+                    $defResults[$label][$subResultArray['subNode']['name']][] = [
                         'item' => $talent,
                         'score' => $score,
                         'icon' => $node['icon'],
