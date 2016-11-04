@@ -259,9 +259,7 @@ class TalentreeClient
                     if (!in_array($part['id'], $data['talentree']['idList'])) continue;
                     if (!array_key_exists($part['id'], $data['talentree']['results'])) continue;
 
-                    $data['talentree']['results'][$part['id']]['description'] = $part['description'];
                     $subResultArray['items'][] = $data['talentree']['results'][$part['id']];
-                    // $data['talentree']['results'][$part['id']]['count']
                 }
 
                 if (empty($subResultArray['items'])) continue;
@@ -283,7 +281,6 @@ class TalentreeClient
                         $score = 50;
                     }
 
-                    unset($talent['description']);
                     $label = !empty($node['label']) ? $node['label'] : $node['name'];
                     $defResults[$label][$subResultArray['subNode']['name']][] = [
                         'item' => $talent,
