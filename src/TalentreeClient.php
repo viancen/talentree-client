@@ -360,20 +360,20 @@ class TalentreeClient
     }
 
     /**
-     * GEt all lists
+     * Get all lists
      * @return Generator
      */
     function getSettingLists()
     {
         $return = [];
         foreach ($this->settings as $oneList => $label) {
-            $return[$label] = $this->makeList($oneList);
+            $return[$label['name']] = $this->makeList($oneList);
         }
         return $return;
     }
 
     /**
-     * GEt all lists
+     * Get all filter lists
      * @return Generator
      */
     function getFiltersLists()
