@@ -14,13 +14,16 @@ class TalentreeClient
     //What part of Talentree is used
     public $settings = [];
 
+    //Global talentree setting
+    public $global_settings = [];
+
     //What part of Talentree is used for filters
     public $filter_settings = [];
 
     //Root url of API
     public $root;
 
-    //not used yet
+    //Not used
     public $debug = false;
 
     //Todo: map all errors into comprehensible messages
@@ -52,6 +55,9 @@ class TalentreeClient
             if (!empty($options['filter_settings'])) {
                 $this->filter_settings = $options['filter_settings'];
             }
+            if (!empty($options['global_settings'])) {
+                $this->global_settings = $options['global_settings'];
+            }
         }
 
         $this->client = new Client();
@@ -63,6 +69,21 @@ class TalentreeClient
     public function getSettings()
     {
         return $this->settings;
+    }
+
+    public function setSettings($data)
+    {
+        return $this->settings = $data;
+    }
+
+    public function getGlobalSettings()
+    {
+        return $this->global_settings;
+    }
+
+    public function setGlobalSettings($data)
+    {
+        return $this->global_settings = $data;
     }
 
     public function getFilterSettings()
@@ -232,11 +253,19 @@ class TalentreeClient
      *
      * @param $data
      */
-    function sortResults($data)
+    function sortResults($data, $global = false)
     {
         $defResults = [];
 
-        foreach ($this->settings as $node) {
+        if ($global === false) {
+            $settings = $this->settings;
+            $sList = 'talentree';
+        } else {
+            $settings = $this->global_settings;
+            $sList = 'talentree_global';
+        }
+
+        foreach ($settings as $node) {
             $ii = 0;
 
             if ($node['items'] == 'all-children') {
@@ -256,10 +285,10 @@ class TalentreeClient
                 foreach ($subTree as $part) {
 
                     if ($part['recognizable'] == false) continue;
-                    if (!in_array($part['id'], $data['talentree']['idList'])) continue;
-                    if (!array_key_exists($part['id'], $data['talentree']['results'])) continue;
+                    if (!in_array($part['id'], $data[$sList]['idList'])) continue;
+                    if (!array_key_exists($part['id'], $data[$sList]['results'])) continue;
 
-                    $subResultArray['items'][] = $data['talentree']['results'][$part['id']];
+                    $subResultArray['items'][] = $data[$sList]['results'][$part['id']];
                 }
 
                 if (empty($subResultArray['items'])) continue;
