@@ -76,6 +76,11 @@ class TalentreeClient
         return $this->settings = $data;
     }
 
+    public function setRoot($url)
+    {
+        return $this->root = $url;
+    }
+
     public function getGlobalSettings()
     {
         return $this->global_settings;
@@ -330,7 +335,7 @@ class TalentreeClient
      * @param $data
      * @return mixed
      */
-    function makeList($id)
+    public function makeList($id)
     {
 
         $client = new Client();
@@ -361,7 +366,7 @@ class TalentreeClient
      * @param $data
      * @return mixed
      */
-    function getItem($id)
+    public function getItem($id)
     {
 
         $client = new Client();
@@ -387,9 +392,9 @@ class TalentreeClient
 
     /**
      * Get all lists
-     * @return Generator
+     * @return array
      */
-    function getSettingLists()
+    public function getSettingLists()
     {
         $return = [];
         foreach ($this->settings as $oneList => $label) {
@@ -400,9 +405,9 @@ class TalentreeClient
 
     /**
      * Get all filter lists
-     * @return Generator
+     * @return array
      */
-    function getFiltersLists()
+    public function getFiltersLists()
     {
         $return = [];
         foreach ($this->filter_settings as $oneList => $label) {
