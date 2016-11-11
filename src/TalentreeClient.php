@@ -270,13 +270,20 @@ class TalentreeClient
             $sList = 'talentree_global';
         }
 
+        /*
+        $idString = implode(',',$data['idList']);
+        $deepResults = $this->get('deep-tree?id='.$idString);
+        dd($deepResults,true);
+        */
+
         foreach ($settings as $node) {
             $ii = 0;
+            $i = 0;
 
-            if ($node['items'] == 'all-children') {
+            if (empty($node['items']) || $node['items'] == 'all-children') {
                 $node['items'] = $this->getChildren($node['id']);
             }
-            $i = 0;
+
             foreach ($node['items'] as $subNode) {
 
                 $subTree = $this->makeList($subNode['id']);
@@ -316,13 +323,33 @@ class TalentreeClient
                     }
 
                     $label = !empty($node['label']) ? $node['label'] : $node['name'];
-                    $defResults[$label][$subResultArray['subNode']['name']][] = [
+                    if (!isset($defResults[$label][$subResultArray['subNode']['name']]['totalScore']))
+                        $defResults[$label][$subResultArray['subNode']['name']]['totalScore'] = 0;
+
+                    $defResults[$label][$subResultArray['subNode']['name']]['totalScore'] += $score;
+                    $defResults[$label][$subResultArray['subNode']['name']]['items'][] = [
                         'item' => $talent,
                         'score' => $score,
                         'icon' => $node['icon'],
                     ];
+
                 }
+                uasort(
+                    $defResults[$label][$subResultArray['subNode']['name']]['items'],
+                    function ($a, $b) {
+                        return $a['score'] > $b['score'] ? -1 : 1;
+                    }
+                );
             }
+        }
+
+        foreach($defResults as $oneKey => &$subVals){
+            uasort(
+                $subVals,
+                function ($a, $b) {
+                    return $a['totalScore'] > $b['totalScore'] ? -1 : 1;
+                }
+            );
         }
 
         return $defResults;
@@ -335,7 +362,7 @@ class TalentreeClient
      * @param $data
      * @return mixed
      */
-    public function makeList($id)
+    function makeList($id)
     {
 
         $client = new Client();
@@ -366,7 +393,7 @@ class TalentreeClient
      * @param $data
      * @return mixed
      */
-    public function getItem($id)
+    function getItem($id)
     {
 
         $client = new Client();
@@ -394,7 +421,7 @@ class TalentreeClient
      * Get all lists
      * @return array
      */
-    public function getSettingLists()
+    function getSettingLists()
     {
         $return = [];
         foreach ($this->settings as $oneList => $label) {
@@ -407,7 +434,7 @@ class TalentreeClient
      * Get all filter lists
      * @return array
      */
-    public function getFiltersLists()
+    function getFiltersLists()
     {
         $return = [];
         foreach ($this->filter_settings as $oneList => $label) {
