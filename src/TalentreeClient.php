@@ -343,7 +343,7 @@ class TalentreeClient
             }
         }
 
-        foreach($defResults as $oneKey => &$subVals){
+        foreach ($defResults as $oneKey => &$subVals) {
             uasort(
                 $subVals,
                 function ($a, $b) {
@@ -383,9 +383,7 @@ class TalentreeClient
         } else {
             return $body;
         }
-
     }
-
 
     /**
      * gets all direct children
@@ -445,5 +443,4 @@ class TalentreeClient
 
         return $return;
     }
-
 }
