@@ -277,6 +277,7 @@ class TalentreeClient
         */
 
         foreach ($settings as $node) {
+
             $ii = 0;
             $i = 0;
 
@@ -327,6 +328,7 @@ class TalentreeClient
                     $defResults[$label][$subResultArray['subNode']['name']]['totalScore'] += $score;
                     $defResults[$label][$subResultArray['subNode']['name']]['items'][] = [
                         'item' => $talent,
+                        'count' => $talent['count'],
                         'score' => $score,
                         'icon' => $node['icon'],
                     ];
