@@ -280,9 +280,7 @@ class TalentreeClient
             $ii = 0;
             $i = 0;
 
-            if (empty($node['items']) || $node['items'] == 'all-children') {
-                $node['items'] = $this->getChildren($node['id']);
-            }
+            $node['items'] = $this->getChildren($node['id']);
 
             foreach ($node['items'] as $subNode) {
 
@@ -343,7 +341,7 @@ class TalentreeClient
             }
         }
 
-        foreach ($defResults as $oneKey => &$subVals) {
+        foreach($defResults as $oneKey => &$subVals){
             uasort(
                 $subVals,
                 function ($a, $b) {
@@ -383,7 +381,9 @@ class TalentreeClient
         } else {
             return $body;
         }
+
     }
+
 
     /**
      * gets all direct children
@@ -443,4 +443,5 @@ class TalentreeClient
 
         return $return;
     }
+
 }
