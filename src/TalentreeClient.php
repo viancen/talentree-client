@@ -49,6 +49,9 @@ class TalentreeClient
         $this->root = $root;
 
         if (!empty($options)) {
+            if (!empty($options['slug'])) {
+                $this->root .= '/' . $options['slug'];
+            }
             if (!empty($options['settings'])) {
                 $this->settings = $options['settings'];
             }
@@ -343,7 +346,7 @@ class TalentreeClient
             }
         }
 
-        foreach($defResults as $oneKey => &$subVals){
+        foreach ($defResults as $oneKey => &$subVals) {
             uasort(
                 $subVals,
                 function ($a, $b) {
