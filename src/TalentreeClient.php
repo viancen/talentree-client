@@ -51,6 +51,7 @@ class TalentreeClient
         if (!empty($options)) {
             if (!empty($options['slug'])) {
                 $this->root .= '/' . $options['slug'];
+	            $this->root = str_replace('//','/', $this->root);
             }
             if (!empty($options['settings'])) {
                 $this->settings = $options['settings'];
@@ -65,7 +66,7 @@ class TalentreeClient
 
         $this->client = new Client();
 
-        $this->root = rtrim($this->root, '/') . '/';
+	    $this->root = rtrim($this->root, '/') . '/';
 
     }
 
