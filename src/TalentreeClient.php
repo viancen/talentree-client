@@ -42,7 +42,7 @@ class TalentreeClient
 	{
 		if (!$apikey) throw new Talentree_Error('You must provide a Talentree API key');
 		if (!$root) {
-			$root = 'https://talentree.io/v1/';
+			$root = 'https://api.talentree.cloud/v1/';
 		}
 
 		$this->apiKey = $apikey;
