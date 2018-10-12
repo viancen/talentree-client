@@ -134,6 +134,36 @@ class TalentreeClient
 	}
 
 	/**
+	 * @param $stringQuery
+	 *
+	 * @return array|mixed
+	 */
+	public function listLogos($stringQuery)
+	{
+
+		try {
+			$response = $this->client->request('GET', $this->root .'logos', [
+				'headers' => [
+					'X-Authorization' => $this->apiKey,
+					'X-response-type' => 'json',
+					'Content-Type' => 'application/json',
+				],
+				'decode_content' => true,
+				'verify' => false
+			]);
+
+		} catch (Talentree_HttpError $error) {
+			return [
+				'code' => $error->getCode(),
+				'message' => $error->getMessage()
+			];
+		}
+
+		$body = json_decode($response->getBody(), true);
+		return $body;
+	}
+
+	/**
 	 * Post request to Talentree.io
 	 *
 	 * @param $endpoint
